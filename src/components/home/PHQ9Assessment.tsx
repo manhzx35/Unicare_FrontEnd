@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { 
   Activity, 
   Brain, 
   Cloud, 
-  Wind, 
   Zap, 
   Flame, 
   AlertCircle, 
@@ -93,7 +92,7 @@ export default function PHQ9Assessment() {
     setShowResults(false);
   }, []);
 
-  const score = answers.reduce((acc, val) => acc + (val ?? 0), 0) as number;
+  const score = answers.reduce((acc: number, val) => acc + (val ?? 0), 0);
   const hasSuicidalThoughts = answers[8] !== undefined && answers[8] > 0;
 
   const getResultVisuals = (totalScore: number) => {

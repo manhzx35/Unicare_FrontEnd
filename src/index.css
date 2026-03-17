@@ -1,0 +1,214 @@
+/* ================================================
+   UniCare Mental Health — Global Styles
+   Design System: Soft UI Evolution (MASTER.md)
+   ================================================ */
+@import "tailwindcss";
+
+/* ── Tailwind v4 Theme Tokens ── */
+@theme {
+  /* ── Font Families ── */
+  --font-heading: "Varela Round", sans-serif;
+  --font-body: "Nunito Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* ── Font Sizes (Type Scale) ── */
+  --font-size-display: 3rem;
+  --font-size-h1: 2.25rem;
+  --font-size-h2: 1.75rem;
+  --font-size-h3: 1.375rem;
+  --font-size-h4: 1.125rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-body: 1rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-caption: 0.75rem;
+
+  /* ── Line Heights ── */
+  --line-height-display: 1.2;
+  --line-height-h1: 1.3;
+  --line-height-h2: 1.35;
+  --line-height-h3: 1.4;
+  --line-height-h4: 1.45;
+
+  /* ── Nature & Balance ── */
+  --color-nature-fresh: #A4D0A4;
+  --color-nature-balance: #B2C9E1;
+  --color-nature-healing: #F4F1EA;
+  --color-nature-peaceful: #E0DED7;
+
+  /* ── Peace & Trust ── */
+  --color-peace-serene: #95B9C7;
+  --color-peace-trust: #4C6F87;
+  --color-peace-calm: #DEDEDE;
+  --color-peace-safe: #B4BCC8;
+
+  /* ── Warmth & Care ── */
+  --color-warmth-comfort: #E1D9CC;
+  --color-warmth-care: #DCCEC1;
+  --color-warmth-gentle: #FEFDE0;
+  --color-warmth-relaxing: #FBE0DE;
+
+  /* ── Sleep & Deep ── */
+  --color-sleep-deep: #191970;
+  --color-sleep-restful: #6A7F93;
+  --color-sleep-peaceful: #AAB8C2;
+  --color-sleep-restorative: #F0F4F8;
+
+  /* ── Semantic Colors ── */
+  --color-primary: #4C6F87;
+  --color-secondary: #A4D0A4;
+  --color-background: #F4F1EA;
+  --color-surface: #FFFFFF;
+  --color-muted: #4C6F87;
+
+  /* ── Soft Shadows ── */
+  --shadow-soft-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-soft-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-soft-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-soft-lg: 0 8px 16px rgba(0, 0, 0, 0.10);
+  --shadow-soft-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow-primary: 0 4px 14px rgba(76, 111, 135, 0.25);
+  --shadow-glow-success: 0 4px 14px rgba(164, 208, 164, 0.30);
+
+  /* ── Border Radius ── */
+  --radius-soft: 10px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+
+  /* ── Transitions ── */
+  --transition-duration-fast: 150ms;
+  --transition-duration-base: 200ms;
+  --transition-duration-slow: 300ms;
+}
+
+/* ── CSS Custom Properties (for JS/component access) ── */
+:root {
+  /* Semantic colors (light mode) */
+  --color-text: #1A1A2E;
+  --color-text-muted: #4C6F87;
+  --color-border: #E0DED7;
+  --color-success: #A4D0A4;
+  --color-warning: #FEFDE0;
+  --color-error: #FBE0DE;
+}
+
+/* Dark Mode overrides */
+.dark {
+  --color-primary: #95B9C7;
+  --color-secondary: #A4D0A4;
+  --color-background: #191970;
+  --color-surface: #2D2D5A;
+  --color-text: #F0F4F8;
+  --color-text-muted: #AAB8C2;
+  --color-border: #4C6F87;
+}
+
+/* ── Base Reset & Defaults ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+
+/* ── Links ── */
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ── Focus Visible ── */
+:focus-visible {
+  outline: 2px solid var(--color-peace-trust, #4C6F87);
+  outline-offset: 2px;
+}
+
+/* ════════════════════════════════════════════
+   COMPONENT CLASSES
+   ════════════════════════════════════════════ */
+
+/* ── Calm CTA Button (purple gradient) ── */
+.calm-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.35);
+}
+
+.calm-cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.45);
+}
+
+.calm-cta-btn:active {
+  transform: translateY(0);
+}
+
+.calm-cta-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Scrollbar hide utility ── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Breathing Animation Keyframes ── */
+@keyframes breathingRingPulse {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  33% { transform: scale(1.1); opacity: 0.4; }
+  66% { transform: scale(1.05); opacity: 0.3; }
+}
+
+@keyframes breathingDot {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+
+/* ── Accessibility: Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

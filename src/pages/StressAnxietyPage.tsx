@@ -4,7 +4,6 @@ import {
   ToolsSection,
   StressCTABanner,
   StressTestimonials,
-  StressQuiz,
   StressPricing,
 } from '../components/stress';
 
@@ -22,7 +21,6 @@ export default function StressAnxietyPage() {
       <ToolsSection />
       <StressCTABanner />
       <StressTestimonials />
-      <StressQuiz />
       <StressPricing />
     </>
   );

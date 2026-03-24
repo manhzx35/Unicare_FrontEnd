@@ -2,7 +2,6 @@ import {
   HeroSection,
   FeaturesSection,
   MoodCheckin,
-  PHQ9Assessment,
   TestimonialsSection,
   PricingCTA,
   BlogSection,
@@ -23,7 +22,7 @@ export default function HomePage() {
       <HeroSection />
       <FeaturesSection />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {isAuthenticated ? <MoodCheckin /> : <PHQ9Assessment />}
+        {isAuthenticated && <MoodCheckin />}
       </div>
       <TestimonialsSection />
       <PricingCTA />

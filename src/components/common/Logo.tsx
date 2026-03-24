@@ -9,15 +9,6 @@ interface LogoProps {
   style?: React.CSSProperties;
 }
 
-/**
- * UniCare official logo image.
- * The logo already contains the brand name, so do NOT add extra text when using this.
- *
- * Usage:
- *   <Logo height={40} />          — standard navbar size
- *   <Logo height={56} />          — larger hero/profile banner size
- *   <Logo height={28} />          — compact footer/sidebar size
- */
 const Logo = ({ height = 36, className, style }: LogoProps) => (
   <img
     src={logoImage}

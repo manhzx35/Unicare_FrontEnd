@@ -15,6 +15,7 @@ import VerifyOtpPage from './pages/VerifyOtpPage';
 import ProfilePage from './pages/ProfilePage';
 import CheckoutPage from './pages/CheckoutPage';
 import PaymentResultPage from './pages/PaymentResultPage';
+import PsychologicalTestPage from './pages/PsychologicalTestPage';
 
 /**
  * App — root component with route definitions.
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/stress-anxiety" element={<StressAnxietyPage />} />
           <Route path="/mindfulness" element={<MindfulnessPage />} />
           <Route path="/calm-health" element={<CalmHealthPage />} />
+          <Route path="/test-tam-ly/:testId" element={<PsychologicalTestPage />} />
         </Route>
 
         {/* ── Full-screen pages (no shared layout) ── */}

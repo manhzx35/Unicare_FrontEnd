@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { User, Menu, X, LogIn, LogOut } from 'lucide-react';
+import { User, Menu, X, LogIn, LogOut, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+
+import { psychologicalTests } from '../../data/psychologicalTests';
 
 /**
  * Navbar — transparent at top → solid white on scroll.
@@ -11,12 +13,13 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showTestMenu, setShowTestMenu] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   /* Pages with light backgrounds need dark navbar text when NOT scrolled */
   const lightPages = ['/stress-anxiety', '/calm-health', '/mindfulness'];
-  const isLightPage = lightPages.includes(location.pathname);
+  const isLightPage = lightPages.includes(location.pathname) || location.pathname.startsWith('/test-tam-ly');
 
   /* Determine text color mode: dark text when scrolled OR on light pages */
   const useDarkText = scrolled || isLightPage;
@@ -32,6 +35,7 @@ export default function Navbar() {
   useEffect(() => {
     setMobileOpen(false);
     setShowProfileMenu(false);
+    setShowTestMenu(false);
   }, [location.pathname]);
 
   const isActive = (path: string) => location.pathname === path;
@@ -66,6 +70,44 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">
+            {/* Test Tâm Lý Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setShowTestMenu(true)}
+              onMouseLeave={() => setShowTestMenu(false)}
+            >
+              <button
+                aria-label="Tests Menu"
+                className={`
+                  px-3 py-2 rounded-lg text-[0.9375rem] font-medium inline-flex items-center gap-1 cursor-pointer no-underline transition-all duration-base bg-transparent border-none
+                  ${location.pathname.startsWith('/test-tam-ly') ? (useDarkText ? 'text-[#1A1A2E]' : 'text-white') : (useDarkText ? 'text-[rgba(26,26,46,0.7)] hover:text-[#1A1A2E]' : 'text-white/85 hover:text-white')}
+                `}
+              >
+                TEST TÂM LÝ
+                <ChevronDown className="w-4 h-4" />
+              </button>
+
+              {/* Mega Menu Dropdown */}
+              {showTestMenu && (
+                <div className="absolute left-0 top-full pt-2 w-[800px] animate-in fade-in slide-in-from-top-1">
+                  <div className="bg-white rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 p-6">
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                      {psychologicalTests.map((t) => (
+                        <Link
+                          key={t.id}
+                          to={`/test-tam-ly/${t.id}`}
+                          onClick={() => setShowTestMenu(false)}
+                          className="block text-[#4A5568] hover:text-[#E87B35] font-medium transition-colors no-underline text-[15px]"
+                        >
+                          {t.shortTitle}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <NavLink
               to="/stress-anxiety"
               label="Căng thẳng & Lo âu"
@@ -204,6 +246,13 @@ export default function Navbar() {
         <div className="lg:hidden bg-white border-t border-[#E5E7EB] shadow-soft-md animate-in slide-in-from-top">
           <div className="flex flex-col px-6 py-4 gap-1">
             <MobileNavLink to="/" label="Trang chủ" active={isActive('/')} />
+            <div className="px-4 py-2 mt-2">
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Test Tâm Lý</span>
+            </div>
+            {psychologicalTests.map((t) => (
+              <MobileNavLink key={t.id} to={`/test-tam-ly/${t.id}`} label={t.shortTitle} active={isActive(`/test-tam-ly/${t.id}`)} />
+            ))}
+            <div className="my-2 border-t border-gray-100"></div>
             <MobileNavLink to="/stress-anxiety" label="Căng thẳng & Lo âu" active={isActive('/stress-anxiety')} />
             <MobileNavLink to="/mindfulness" label="Chánh niệm" active={isActive('/mindfulness')} />
             <MobileNavLink to="/calm-health" label="UniCare Health" active={isActive('/calm-health')} />

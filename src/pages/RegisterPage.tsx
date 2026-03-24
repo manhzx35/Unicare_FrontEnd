@@ -49,8 +49,8 @@ const RegisterPage = () => {
     }
     setLoading(true);
     try {
-      await authService.register({ email, password, displayName });
-      toast.success('Đăng ký thành công! Vui lòng kiểm tra email để lấy mã xác thực.');
+      const data = await authService.register({ email, password, displayName });
+      toast.success(data.message || 'Đăng ký thành công! Vui lòng kiểm tra email để lấy mã xác thực.');
       navigate('/verify-otp', { state: { email } });
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Đăng ký thất bại. Thử lại sau.');

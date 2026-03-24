@@ -50,11 +50,13 @@ const STRESS_TAGS = [
   'Giấc ngủ',
   'Gia đình',
   'Cô đơn',
+  'Khác',
 ];
 
 export default function MoodCheckin() {
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [customTag, setCustomTag] = useState('');
   const [note, setNote] = useState('');
   const [saved, setSaved] = useState(false);
 
@@ -71,6 +73,7 @@ export default function MoodCheckin() {
     setTimeout(() => {
       setSelectedMood(null);
       setSelectedTags([]);
+      setCustomTag('');
       setNote('');
       setSaved(false);
     }, 1500);
@@ -81,14 +84,15 @@ export default function MoodCheckin() {
       alert('Vui lòng chọn tâm trạng của bạn trước');
       return;
     }
-    
+    const finalTags = selectedTags.map(t => (t === 'Khác' && customTag.trim()) ? customTag.trim() : t);
+
     await submitMood({
       score: selectedMood,
-      tags: selectedTags,
+      tags: finalTags,
       note,
     });
 
-  }, [selectedMood, selectedTags, note, submitMood]);
+  }, [selectedMood, selectedTags, customTag, note, submitMood]);
 
   return (
     <section
@@ -177,7 +181,7 @@ export default function MoodCheckin() {
           {/* Stress Tags */}
           <div className="mb-8">
             <label className="block text-sm font-medium text-[#1A1A2E] mb-4">
-              Bạn đang nghĩ gì?
+              Bạn hiện tại đang có tâm sự về điều gì?
             </label>
             <div className="flex flex-wrap gap-2">
               {STRESS_TAGS.map((tag) => {
@@ -201,16 +205,27 @@ export default function MoodCheckin() {
                 );
               })}
             </div>
+            {selectedTags.includes('Khác') && (
+              <div className="mt-4 animate-in fade-in slide-in-from-top-2">
+                <input
+                  type="text"
+                  placeholder="Nhập tâm sự khác..."
+                  className="w-full p-2.5 rounded-lg bg-white border border-[#E5E7EB] text-sm text-[#1A1A2E] placeholder:text-[#9CA3AF] focus:outline-none focus:border-peace-trust focus:ring-[3px] focus:ring-peace-trust/15 transition-all"
+                  value={customTag}
+                  onChange={(e) => setCustomTag(e.target.value)}
+                />
+              </div>
+            )}
           </div>
 
           {/* Note */}
           <div className="mb-8">
             <label className="block text-sm font-medium text-[#1A1A2E] mb-2">
-              Thêm ghi chú (tùy chọn)
+              Thêm nhật ký của bạn ngày hôm nay.
             </label>
             <textarea
               className="w-full p-3 rounded-soft bg-[#F9FAFB] border border-[#E5E7EB] text-[#1A1A2E] font-body resize-none h-20 transition-all duration-base placeholder:text-[#9CA3AF] focus:outline-none focus:border-peace-trust focus:ring-[3px] focus:ring-peace-trust/15"
-              placeholder="Viết về rảm giác của bạn..."
+              placeholder="Viết về cảm giác của bạn..."
               value={note}
               onChange={(e) => setNote(e.target.value)}
             />

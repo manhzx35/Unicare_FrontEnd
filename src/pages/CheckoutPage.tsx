@@ -7,7 +7,10 @@ import {
   ChevronRight,
   Lock
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 import paymentService from '../services/paymentService';
+
+import { useAuth } from '../context/AuthContext';
 
 /**
  * CheckoutPage — Minimalist premium checkout experience.
@@ -17,6 +20,7 @@ import paymentService from '../services/paymentService';
 export default function CheckoutPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
   const [paymentMethod, setPaymentMethod] = useState<'vnpay' | null>('vnpay');
   const [loading, setLoading] = useState(false);
 
@@ -37,6 +41,13 @@ export default function CheckoutPage() {
   ];
 
   const handleStartTrial = async () => {
+    // 1. Check authentication
+    if (!isAuthenticated) {
+      toast.error('Vui lòng đăng nhập để tiếp tục thanh toán.');
+      navigate('/login', { state: { from: location.pathname, tier } });
+      return;
+    }
+
     if (paymentMethod === 'vnpay') {
       try {
         setLoading(true);

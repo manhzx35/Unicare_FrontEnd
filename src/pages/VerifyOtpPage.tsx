@@ -61,8 +61,8 @@ const VerifyOtpPage = () => {
 
     setLoading(true);
     try {
-      await authService.verifyOtp(email, otpValue);
-      toast.success('Xác thực thành công! Hãy đăng nhập để bắt đầu.');
+      const data = await authService.verifyOtp(email, otpValue);
+      toast.success(data.message || 'Xác thực thành công! Hãy đăng nhập để bắt đầu.');
       navigate('/login');
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Xác thực thất bại. Vui lòng thử lại.');
@@ -75,8 +75,8 @@ const VerifyOtpPage = () => {
     if (timer > 0) return;
     setResending(true);
     try {
-      await authService.resendOtp(email);
-      toast.success('Mã xác thực mới đã được gửi!');
+      const data = await authService.resendOtp(email);
+      toast.success(data.message || 'Mã xác thực mới đã được gửi!');
       setTimer(60);
       setOtp(['', '', '', '', '', '']);
       inputRefs.current[0]?.focus();
